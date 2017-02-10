@@ -7,6 +7,8 @@ from re import findall
 from sys import argv
 from pprint import pprint
 
+path = "/home/kevin/homeChecker/home.db"
+
 def getOnlineClients():
     try:
         arpOutput = check_output("sudo arp-scan -l", shell=True)
@@ -25,7 +27,7 @@ def getAddr(c):
     return [i[0] for i in c.fetchall()]
 
 def getTimes():
-    conn = sqlite3.connect('home.db')
+    conn = sqlite3.connect(path)
     c = conn.cursor()
 
     c.execute('SELECT c.name, l.timesince FROM lastonline AS l JOIN clients AS c WHERE l.clientadr=c.adr')
@@ -59,7 +61,7 @@ def convertTime(seconds):
 
 def updateTimes():
     curTime = time()
-    conn = sqlite3.connect('home.db')
+    conn = sqlite3.connect(path)
     c = conn.cursor()
     
     online = list(set(getOnlineClients()) & set(getAddr(c)))
@@ -73,12 +75,10 @@ def updateTimes():
     return (online)
 
 if __name__ == '__main__':
-    if argv[-1] == 'add':
-        print("Updated following clients:", updateTimes())
-    elif argv[-1] == 'get':
-        pprint(getTimes())
+    if argv[-1] == 'get':
+        pprint(getTimes()) 
     else:
-        print("Add args 'add' or 'get'")
+        print("Updated following clients:", updateTimes())
 
     
 
