@@ -19,7 +19,7 @@ def getOnlineClients():
         print("Not able to run 'arp-scan -l' on this machine.")
         exit(0)
 
-def getAddr():
+def getAddr(c):
     c.execute('SELECT adr FROM clients')
     
     return [i[0] for i in c.fetchall()]
@@ -63,7 +63,7 @@ def updateTimes():
     conn = sqlite3.connect('home.db')
     c = conn.cursor()
     
-    online = list(set(getOnlineClients()) & set(getAddr()))
+    online = list(set(getOnlineClients()) & set(getAddr(c)))
 
     for adr in online:
         c.execute('UPDATE lastonline SET timesince='+ str(curTime) +' WHERE clientadr="cc:29:f5:b8:2d:a2"')
