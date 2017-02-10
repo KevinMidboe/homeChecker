@@ -65,7 +65,7 @@ def updateTimes():
     online = list(set(getOnlineClients()) & set(getAddr(c)))
 
     for adr in online:
-        c.execute('UPDATE lastonline SET timesince='+ str(curTime) +' WHERE clientadr="'+ adr + '"')
+        c.execute('UPDATE lastonline SET timesince='+ str("{:10.2f}".format(curTime)) +' WHERE clientadr="'+ adr + '"')
 
     conn.commit()
     conn.close()
