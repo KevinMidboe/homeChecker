@@ -5,6 +5,7 @@ from subprocess import check_output, CalledProcessError
 from time import time
 from re import findall
 from sys import argv
+import pprint
 
 def getOnlineClients():
     try:
@@ -72,9 +73,9 @@ def updateTimes():
 
 if __name__ == '__main__':
     if argv[-1] == 'add':
-        print(updateTimes())
+        pprint(updateTimes())
     elif argv[-1] == 'get':
-        print(getTimes())
+        pprint(getTimes())
     else:
         print("Add args 'add' or 'get'")
 
