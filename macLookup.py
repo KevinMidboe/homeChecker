@@ -41,6 +41,9 @@ def getTimes():
     return returnList
 
 def convertTime(seconds):
+    if not isinstance(seconds, (int, long, float)):
+        return 'Null'
+
     delta = float("%0.2f" % (time() - seconds))
     if delta >= 86400:
         return str(delta//86400) + ' days'
