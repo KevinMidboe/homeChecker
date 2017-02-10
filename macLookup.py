@@ -41,7 +41,7 @@ def getTimes():
     return returnList
 
 def convertTime(seconds):
-    if not isinstance(seconds, (int, long, float)):
+    if not isinstance(seconds, (int, float)):
         return 'Null'
 
     delta = float("%0.2f" % (time() - seconds))
