@@ -44,7 +44,7 @@ def convertTime(seconds):
     if not isinstance(seconds, (int, float)):
         return 'Null'
 
-    delta = float("%0.2f" % (time() - seconds))
+    delta = int(time() - seconds)
     if delta >= 86400:
         return str(delta//86400) + ' days'
     elif delta >= 3600:
