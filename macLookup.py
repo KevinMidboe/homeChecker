@@ -5,7 +5,7 @@ from subprocess import check_output, CalledProcessError
 from time import time
 from re import findall
 from sys import argv
-import pprint
+from pprint import pprint
 
 def getOnlineClients():
     try:
