@@ -71,14 +71,15 @@ def updateTimes():
     conn.commit()
     conn.close()
 
-    return ("Updated following clients: " + online)
+    return (online)
 
 if __name__ == '__main__':
     if argv[-1] == 'add':
-        pprint(updateTimes())
+        print("Updated following clients:", updateTimes())
     elif argv[-1] == 'get':
         pprint(getTimes())
     else:
         print("Add args 'add' or 'get'")
 
     
+
