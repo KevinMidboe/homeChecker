@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
 
 import sqlite3
-from subprocess import check_output
+from subprocess import check_output, CalledProcessError
 from time import time
 from re import findall
+from sys import argv
 
 def getOnlineClients():
-    arpOutput = subprocess.check_output("sudo arp-scan -l", shell=True)
-    arpOutput = arpOutput.decode()
+    try:
+        arpOutput = check_output("sudo arp-scan -l", shell=True)
+        arpOutput = arpOutput.decode()
+        
+        macAdr = findall('(([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2}))', arpOutput)
+        return [i[0] for i in macAdr]
 
-    macAdr = findall('(([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2}))', arpOutput)
-
-    return [i[0] for i in macAdr]
+    except CalledProcessError:
+        print("Not able to run 'arp-scan -l' on this machine.")
+        exit(0)
 
 def getAddr():
     c.execute('SELECT adr FROM clients')
@@ -64,3 +69,13 @@ def updateTimes():
 
     conn.commit()
     conn.close()
+
+if __name__ == '__main__':
+    if argv[-1] == 'add':
+        print(updateTimes())
+    elif argv[-1] == 'get':
+        print(getTimes())
+    else:
+        print("Add args 'add' or 'get'")
+
+    
