@@ -71,6 +71,8 @@ def updateTimes():
     conn.commit()
     conn.close()
 
+    return ("Updated following clients: " + online)
+
 if __name__ == '__main__':
     if argv[-1] == 'add':
         pprint(updateTimes())
