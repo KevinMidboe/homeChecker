@@ -34,7 +34,6 @@ def getTimes():
     for name, time in c.fetchall():
         returnList.append({"name": name, "time": convertTime(time)})
 
-    conn.commit()
     conn.close()
 
     return returnList
@@ -66,7 +65,7 @@ def updateTimes():
     online = list(set(getOnlineClients()) & set(getAddr(c)))
 
     for adr in online:
-        c.execute('UPDATE lastonline SET timesince='+ str(curTime) +' WHERE clientadr="cc:29:f5:b8:2d:a2"')
+        c.execute('UPDATE lastonline SET timesince='+ str(curTime) +' WHERE clientadr="'+ adr + '"')
 
     conn.commit()
     conn.close()
