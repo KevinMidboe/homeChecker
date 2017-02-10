@@ -39,7 +39,7 @@ def getTimes():
     return returnList
 
 def convertTime(seconds):
-    delta = time() - seconds
+    delta = float("%0.2f" % (time() - seconds))
     if delta >= 86400:
         return str(delta//86400) + ' days'
     elif delta >= 3600:
@@ -65,7 +65,7 @@ def updateTimes():
     online = list(set(getOnlineClients()) & set(getAddr(c)))
 
     for adr in online:
-        c.execute('UPDATE lastonline SET timesince='+ str("{:10.2f}".format(curTime)) +' WHERE clientadr="'+ adr + '"')
+        c.execute('UPDATE lastonline SET timesince='+ "%0.2f" % curTime +' WHERE clientadr="'+ adr + '"')
 
     conn.commit()
     conn.close()
@@ -81,4 +81,5 @@ if __name__ == '__main__':
         print("Add args 'add' or 'get'")
 
     
+
 
