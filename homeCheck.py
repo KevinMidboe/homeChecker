@@ -17,10 +17,10 @@ def fetchHTimes(filter=None):
     
     for item in json.loads(message):
         if filter != None and item['name'].lower() == filter:
-            print(item['name'].ljust(10) +': '+ item['time'])
+            print(item['name'].ljust(8) +': '+ item['time'])
             break
         elif filter == None:
-            print(item['name'].ljust(10) +': '+ item['time'])
+            print(item['name'].ljust(8) +': '+ item['time'])
     clientSocket.close()
 
 if __name__ == '__main__':
